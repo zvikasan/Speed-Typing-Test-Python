@@ -1,28 +1,19 @@
-# Using Tkinter and what you have learnt about building GUI applications with Python, build a desktop app that assesses your typing speed. Give the user some sample text and detect how many words they can type per minute.
+#This app displays sample text and measures your typing speed
+#The test starts as soon as you type your first character and ends after 60 seconds
+#WPM - Words Per Minute
+#CPM - Characters Per Minute
 
-# The average typing speed is 40 words per minute. But with practice, you can speed up to 100 words per minute.
-
-
-# You can try out a web version here:
-
-# https: // typing-speed-test.aoeu.eu/
-
-
-# If you have more time, you can build your typing speed test into a typing trainer, with high scores and more text samples. You can design your program any way you want.
 import tkinter as tk
 from tkinter import *
-from datetime import datetime, timedelta
-
 
 FONT1 = "Helvetica"
 MIDNIGHTBLUE = "#191970"
+test_started = False
 
 with open("small-text.txt", 'r') as test_text_file:
     test_text = test_text_file.read()
         
-with open("small-text.txt", 'r') as test_text_filezz:
-    text_lines = test_text_filezz.readlines()
-
+# Creating array of words from the loaded text file        
 words_in_test_text = []
 test_text_lines = test_text.split("\n")
 for line in test_text_lines:
@@ -31,12 +22,7 @@ for line in test_text_lines:
         if word != " " and word != "":
             words_in_test_text.append(word)
 
-# print(words_in_test_text)
-
-test_started = False
-
-
-class Timer:
+class Test_timer:
     def __init__(self, parent):
         # variable storing time
         self.seconds = 0
@@ -88,8 +74,6 @@ def window_popup():
             for char in word:
                 if char != " " and char != "":
                     user_text_chars.append(char)
-    
-    # print(user_text_words)
 
     print(f'WPM: {len(user_text_words)}')
     print(f'CPM: {len(user_text_chars)}')
@@ -109,9 +93,9 @@ def window_popup():
     
     print(f'MISTAKES: {mistakes_counter}')
         
-    # print(test_text_part)
+    display_results = f'WPM: {len(user_text_words)} |' + f' CPM: {len(user_text_chars)} |' + f' MISTAKES: {mistakes_counter}'
 
-    user_text += f'WPM: {len(user_text_words)} |' + f' CPM: {len(user_text_chars)} |' + f' MISTAKES: {mistakes_counter}'
+    #Configuring popup window displaying test results 
     popup_window = Tk()
     popup_window.title("typingTest results")
     popup_window.minsize(width=700, height=200)
@@ -120,21 +104,21 @@ def window_popup():
                 command=start_again, width=12, bg=MIDNIGHTBLUE, fg='white')
     popup_ok_btn.place(relx=0.1, rely=0.8, relwidth=0.8, relheight=0.1)
     
-    popup_result_text = Label(popup_window, text=user_text, justify='left', font=(
+    popup_result_text = Label(popup_window, text=display_results, justify='left', font=(
         FONT1, 10, "bold"))
     popup_result_text.place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.6)
 
 
 
-def onKeyPress(event):
+def onKeyPress(event): #This function catches the first key press to start the test
     global start
     global test_started
     global timer
     if test_started == False:
         test_started = True
-        timer = Timer(frame)
+        timer = Test_timer(frame)
 
-def restart():
+def restart_test():
     global test_started
     test_started = False
     text.configure(state='normal')
@@ -163,13 +147,9 @@ text = Text(frame, background='#2F5B9F', foreground='white',
                font=('Arial', 12), insertbackground='white')
 text.place(relx=0.1, rely=0.82, relwidth=0.8, relheight=0.1)
 text.focus()
-text.bind('<KeyPress>', onKeyPress)
+text.bind('<KeyPress>', onKeyPress) #binding the text field with <KeyPress> in order to detect when first key was pressed to start the test.
 restart_btn = Button(frame, text="Restart Test",
-                      command=restart, bg=MIDNIGHTBLUE, fg='white')
+                      command=restart_test, bg=MIDNIGHTBLUE, fg='white')
 restart_btn.place(relx=0.1, rely=0.93, relwidth=0.8, relheight=0.05)
-
-
-
-# timer = Timer(frame)
 
 window.mainloop()
