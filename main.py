@@ -45,7 +45,6 @@ class Timer:
                               font=("Arial 30"), width=10, bg='#d3e0fa', fg='green')
         self.label.place(relx=0.8, rely=0.04, relwidth=0.2, relheight=0.1)
         # start the timer
-
         self.label.after(1000, self.refresh_label)
 
     def refresh_label(self):
@@ -53,11 +52,11 @@ class Timer:
         # increment the time
         self.seconds += 1
         # display the new time
-        if self.seconds < 11:
+        if self.seconds < 61:
             self.label.configure(text="%i s" % self.seconds)
         # request tkinter to call self.refresh after 1s (the delay is given in ms)
             self.label.after(1000, self.refresh_label)
-        if self.seconds == 10:
+        if self.seconds == 60:
             self.label.configure(fg='red')
             text.configure(state='disabled')
             window_popup()
@@ -72,7 +71,6 @@ def window_popup():
         test_started = False
         text.configure(state='normal')
         text.delete("1.0", "end")
-        print('deleted!!!')
         popup_window.destroy()
         timer.label.destroy()
 
@@ -126,9 +124,6 @@ def window_popup():
         FONT1, 10, "bold"))
     popup_result_text.place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.6)
 
-    
-
-
 
 
 def onKeyPress(event):
@@ -138,6 +133,13 @@ def onKeyPress(event):
     if test_started == False:
         test_started = True
         timer = Timer(frame)
+
+def restart():
+    global test_started
+    test_started = False
+    text.configure(state='normal')
+    text.delete("1.0", "end")
+    timer.label.destroy()
 
 window = Tk()
 window.title("typingTest.by_Greg")
@@ -162,6 +164,11 @@ text = Text(frame, background='#2F5B9F', foreground='white',
 text.place(relx=0.1, rely=0.82, relwidth=0.8, relheight=0.1)
 text.focus()
 text.bind('<KeyPress>', onKeyPress)
+restart_btn = Button(frame, text="Restart Test",
+                      command=restart, bg=MIDNIGHTBLUE, fg='white')
+restart_btn.place(relx=0.1, rely=0.93, relwidth=0.8, relheight=0.05)
+
+
 
 # timer = Timer(frame)
 
