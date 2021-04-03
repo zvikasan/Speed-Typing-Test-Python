@@ -1,7 +1,7 @@
 # Real Speed Typing Test
 
 ## This test is called "real" because it doesn't highlight your mistakes the moment you make them (as many online tests do). 
-## This is not how it works in real life! You have to notice and fix your mistake yourself! :monocle_face: :nerd_face:
+## This is not how it works in real life! You have to notice and fix your mistakes yourself! :monocle_face: :nerd_face:
 
 :heavy_check_mark: Written in Python using **tkinter** for graphic interface<br>
 :heavy_check_mark: Reads text from a text file so texts can be easily switched<br>
