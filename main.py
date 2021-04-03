@@ -126,7 +126,7 @@ def restart_test():
     timer.label.destroy()
 
 window = Tk()
-window.title("typingTest.by_Greg")
+window.title("Real Typing Test")
 window.minsize(width=700, height=750)
 window.config(bg='white')
 
@@ -134,7 +134,7 @@ frame = Frame(window, bg='#d3e0fa', bd=0.03)
 frame.place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.8)
 
 
-title_label = Label(frame, text="typingTest.by_Greg", font=(
+title_label = Label(frame, text="Real Typing Test", font=(
     FONT1, 30, "bold"), fg=MIDNIGHTBLUE, bg='white')
 title_label.place(relx=0, rely=0.04, relwidth=0.8, relheight=0.1)
 
